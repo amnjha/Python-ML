@@ -105,7 +105,7 @@ frames = 0
 start = time.time()
 
 frame_count =0
-curr_fps=0
+curr_fps=1
 while cap.isOpened():
     ret, frame = cap.read()
     frame_count = frame_count+1
