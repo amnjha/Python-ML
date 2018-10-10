@@ -95,7 +95,7 @@ videofile = args.videofile #or path to the video file.
 cap = cv2.VideoCapture(videofile)  
 fps = int(cap.get(cv2.CAP_PROP_FPS))
 
-print("Using Skip Frame Count(FPS) : ", fps)
+print("Using Initial Skip Frame Count(FPS) : ", fps)
 
 #cap = cv2.VideoCapture(0)  for webcam
 
@@ -105,10 +105,11 @@ frames = 0
 start = time.time()
 
 frame_count =0
+curr_fps=0
 while cap.isOpened():
     ret, frame = cap.read()
     frame_count = frame_count+1
-    if(frame_count%fps !=0):
+    if(int(frame_count/curr_fps)%fps !=0):
         continue
 
     if ret:   
@@ -164,6 +165,7 @@ while cap.isOpened():
             break
         frames += 1
         print(time.time() - start)
+        curr_fps= float(frames) / (time.time() - start)
         print("FPS of the video is {:5.2f}".format( frames / (time.time() - start)))
     else:
         break     
